@@ -1,0 +1,9 @@
+<form enctype="multipart/form-data" method="post"></form>
+    {% csrf_token %}
+    {% for campo in formulario %}
+        <div class="mb-3">
+            <label for=""class="form-label">Nombre:</label> 
+            <input type="text" class="form-control" id="" aria-describedby="helpId" placeholder="Nombre">
+        </div>
+    {% endfor %}
+    </form>

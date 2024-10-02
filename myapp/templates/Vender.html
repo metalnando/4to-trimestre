@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vender Productos</title>
+</head>
+<body>
+    <h1>Selecciona los productos a vender</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>Seleccionar</th>
+                <th>Producto</th>
+                <th>Precio</th>
+            </tr>
+            {% for producto in productos %}
+            <tr>
+                <td><input type="checkbox" name="productos" value="{{ producto.id }}"></td>
+                <td>{{ producto.nombre }}</td>
+                <td>${{ producto.precio }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Calcular Total</button>
+    </form>
+
+    <h2>Total: ${{ total_precio }}</h2>
+
+    <form action="{% url 'pagar' %}">
+        <button type="submit">Pagar</button>
+    </form>
+    
+    <form action="{% url 'tu_url_de_volver' %}">  <!-- Cambia 'tu_url_de_volver' por la URL correspondiente -->
+        <button type="submit">Volver</button>
+    </form>
+</body>
+</html>

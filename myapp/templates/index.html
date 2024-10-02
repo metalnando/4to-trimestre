@@ -1,0 +1,61 @@
+{% extends "plantilla.html" %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <h1>Bienvenidos a la tienda</h1>
+    
+    <div class="mb-3">
+        <a class="btn btn-success" href="{% url 'crear' %}" role="button">Agregar</a>
+        
+        {% if user.is_authenticated %}
+            <a class="btn btn-danger" href="{% url 'cerrar_sesion' %}" role="button">Cerrar Sesión</a>
+        {% else %}
+            <a class="btn btn-primary" href="{% url 'registro' %}" role="button">Registrarse</a>
+            <a class="btn btn-secondary" href="{% url 'iniciar_sesion' %}" role="button">Iniciar Sesión</a>
+        {% endif %}
+    </div>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    <div class="card">
+        <div class="card-header">
+            <!-- Puedes agregar contenido adicional aquí -->
+        </div>
+    </div>    
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Talla</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in prod %}
+            <tr>
+                <th scope="row">{{ p.id }}</th>
+                <td>{{ p.Marca }}</td>
+                <td>{{ p.Cantidad }}</td>
+                <td>{{ p.Precio }}</td>
+                <td>{{ p.Tipo }}</td>
+                <td>{{ p.Talla }}</td>
+                <td>
+                    <a href="{% url 'editar' p.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'eliminar' p.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
